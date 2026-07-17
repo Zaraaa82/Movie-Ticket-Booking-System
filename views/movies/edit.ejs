@@ -4,27 +4,29 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
-        <link rel="stylesheet" href="/css/style.css">
+        <%- include('../partials/head') %>
     </head>
     <body>
         <%- include('../partials/navbar') %>
 
-        <!-- Page Header -->
-        <%- include('../partials/pageHeader',{title: "Add New Movie", description: "Fill in the details below to add a new movie to the collection."}) %>
-       
         <main>
-            <section class="action-bar">
-                <a href="/movies" class="primary-color" id="goback-btn"> ⮜ Back to Movies</a>
-            </section>
+
             
             <section class="content">
+                <a href="/movies" class="primary-color" id="goback-btn"> ⮜ Back to Movies</a>
 
                 <form method="POST" action="/movies/<%= movie._id  %>?_method=PUT">
+                    <div class="page-header">
+                    <div class="page-heading">
+                        <h1>Update Movie</h1>
+                        <p>Edit the movie details below and save your changes.</p>
+                    </div>
+                </div>
                     <%- include('./partials/movie-form', {movie, genres, languages, ageRatings}) %>
 
                     <section class="form-actions">
-                        <a href="/movies/<%= movie._id  %>" class="secondary-btn">Cancel</a>
-                        <button type="submit" class="primary-btn">Update Movie</button>
+                        <a href="/movies/<%= movie._id  %>" class="secondary-btn btn">Cancel</a>
+                        <button type="submit" class="primary-btn btn">Update Movie</button>
                     </section>
 
                 </form>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <%- include('../partials/head') %>
 </head>
 <body>
     <%- include('../partials/navbar') %>
@@ -26,8 +26,8 @@
                 <%- include('./partials/movie-form', {movie:{}, genres, languages, ageRatings}) %>
 
                 <section class="form-actions">
-                    <a href="/movies" class="secondary-btn">Cancel</a>
-                    <button type="submit" class="primary-btn">Add Movie</button>
+                    <a href="/movies" class="secondary-btn btn">Cancel</a>
+                    <button type="submit" class="primary-btn btn">Add Movie</button>
                 </section>
 
             </form>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <%- include('../partials/head') %>
 </head>
 <body>
     <%- include('../partials/navbar') %>
@@ -64,7 +64,7 @@
                         <% } %>
                         <a href="<%=movie.trailerUrl%>" class="secondary-btn" target="_blank">▶ Watch Trailer</a>
                         <% if(user && user.isAdmin){ %>
-                            <a href="/movies/<%= movie._id  %>/edit" class="btn secondary-btn">✎ Edit</a>
+                            <a href="/movies/<%= movie._id  %>/edit" class="btn secondary-btn ">✎ Edit</a>
                             <form method="post" action="/movies/<%= movie._id  %>?_method=DELETE">
                                 <button class="btn delete-btn" >🗑 Delete</button>
                             </form>
