@@ -60,7 +60,7 @@ const movieSchema = new mongoose.Schema({
         required: true
     },
     releaseDate:{
-        type: String,
+        type: Date,
         required: true
     },
     status: {
@@ -78,15 +78,17 @@ const movieSchema = new mongoose.Schema({
     },
     posterUrl:{
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     trailerUrl: {
         type: String,
-        required: true
+        required: true, 
+        trim: true
     }
 
 });
 
 const Movie = mongoose.model('Movie', movieSchema);
 
-module.exports = {Movie, genres, languages, ageRatings};
+module.exports = Movie;
