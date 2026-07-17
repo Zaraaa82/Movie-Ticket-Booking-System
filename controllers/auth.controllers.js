@@ -11,9 +11,14 @@ router.get("/sign-up", (req, res) => {
 
 router.post("/sign-up", async (req, res) => {
   const userInDatabase = await User.findOne({ username: req.body.username });
+  const emailInDatabase = await User.findOne({ email: req.body.email });
   if (userInDatabase) {
     return res.send("Username already taken.");
   }
+  if (emailInDatabase) {
+    return res.send("Email already exists.");
+  }
+
 
   if (req.body.password !== req.body.confirmPassword) {
     return res.send("Password and Confirm Password must match");
@@ -58,7 +63,9 @@ router.post("/sign-in", async (req, res) => {
   // If there is other data you want to save to `req.session.user`, do so here!
   req.session.user = {
     username: userInDatabase.username,
-    _id: userInDatabase._id
+    _id: userInDatabase._id,
+    isAdmin: userInDatabase.isAdmin,
+    email: userInDatabase.email
   };
 
   res.redirect("/");
