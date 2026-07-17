@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src=""></script>
+</head>
+<body>
+    <!-- Site Header -->
+    <%- include('../partials/navbar') %>
+    
+    <main>
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-heading">
+                <h1>Movies</h1>
+                <p>Browse our collection of movies and find your next favorite.</p>
+            </div>
+            <div class="page-actions">
+                <% if(user && user.isAdmin){ %>
+                    <a href="/movies/new" class="primary-btn">+ Add Movie</a>
+                <% } %>
+            </div>
+        </div>
+        <nav class="page-navigation">
+            <a href="#now-showing">Now Showing</a> |
+            <a href="#coming-soon">coming Soon</a>
+        </nav>
+
+
+        <% const nowShowingMovies = movies.filter(movie=> movie.status == "Now Showing") %>
+        <% const comingSoonMovies = movies.filter(movie=> movie.status == "Coming Soon") %>
+
+        <section class="content">
+            <section>
+                <div class="page-header page-section">
+                    <div class="page-heading">
+                        <h1 id="now-showing">Now Showing</h1>
+                    </div>
+                    <div class="movie-grid">
+                        <% nowShowingMovies.forEach(movie => { %>
+                            <%- include('./partials/movie-card', { movie }) %>
+                        <% }) %>
+                    </div>
+                </div>
+            </section>
+            <section >
+                <div class="page-header page-section">
+                <div class="page-heading">
+                    <h1 id="coming-soon">coming Soon</h1>
+                </div>
+                <div class="movie-grid">
+                    <% comingSoonMovies.forEach(movie => { %>
+                        <%- include('./partials/movie-card', { movie }) %>
+                    <% }) %>
+                </div>
+            </div>
+            </section>
+
+
+        </section>
+
+
+
+
+
+
+    </main>
+
+    
+</body>
+</html>

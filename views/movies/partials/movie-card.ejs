@@ -1,0 +1,33 @@
+<% const durationHours = Math.floor(movie.duration/60)%>
+<% const durationMinutes = movie.duration%60 %>
+        
+<a href="/movies/<%= movie._id  %>" class="movie-card">
+    <img src="<%= movie.posterUrl%>" alt="<%= movie.title %> poster" class="card-poster">
+    <% if(movie.isTrending){ %>
+        <p class="card-trending-badge">🔥Trending</p>
+
+    <% } %>
+    <div class="card-info">
+        <h3 class="card-title"><%= movie.title  %></h3>
+        <p class="card-meta"> 
+            <%= movie.ageRating  %> |
+  
+            <% if (durationHours) { %>
+                <%= durationHours %>h
+            <% } %>
+
+            <% if (durationMinutes) { %>
+                <%= durationMinutes %>m
+            <% } %>
+        </p>
+        <div class="card-genre-container">
+            <!-- Shows only the first two genres -->
+            <% movie.genre.slice(0,2).forEach(genre => { %>
+                <span class="card-genre-badge"><%= genre.name  %></span>
+            <% }); %>
+        </div>
+
+
+    </div>
+
+</a>
