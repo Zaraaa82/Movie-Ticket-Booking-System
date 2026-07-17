@@ -2,7 +2,7 @@ const Genre = require("../models/Genre");
 
 async function movieMetadata(req, res, next) {
     try{
-        res.locals.genres = (await Genre.find()).map(genre => genre.name);
+        res.locals.genres = (await Genre.find());
         res.locals.languages = [
             "English",
             "Arabic",
