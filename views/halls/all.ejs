@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <!-- Site Header -->
+    <%- include('../partials/navbar') %>
+    
+    <main>
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-heading">
+                <h1>Manage Halls</h1>
+                <p>Add, edit, or remove cinema halls.</p>
+            </div>
+            <div class="page-actions">
+                <a href="/halls/new" class="primary-btn">+ Add Hall</a>
+            </div>
+        </div>
+
+        <section class="content table-container">
+            <table class="table-data">
+                <thead>
+                    <th>Hall</th>
+                    <th>Type</th>
+                    <th>Total Seats</th>
+                    <th>Actions</th>
+
+                </thead>
+                <tbody>
+                    <% halls.forEach(hall=>{ %>
+                        <tr>
+                            <td><%= hall.name  %></td>
+                            <td><%= hall.type  %></td>
+                            <td><%= hall.totalSeats  %></td>
+                            <td class="table-actions">
+                                <a href="/halls/<%= hall._id %>/edit" class="secondary-btn btn">✎ Edit</a>
+                                <form method="POST" action="/halls/<%= hall._id %>?_method=DELETE" >
+                                    <button class="delete-btn btn">🗑 Delete</button>
+                                </form>
+    
+                            </td>
+                        </tr>
+        
+                        
+        
+                    <% }) %>
+                    
+                </tbody>
+            </table>
+
+        </section>
+
+
+
+
+
+
+    </main>
+
+    
+</body>
+</html>

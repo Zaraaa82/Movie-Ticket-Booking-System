@@ -1,0 +1,34 @@
+
+            <legend>Hall Information</legend>
+            <div class="form-group">
+                <label for="name">name</label>
+                <input type="text" name="name" id="name"  placeholder="Enter hall name" value="<%= hall.name || ''  %>" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="type">Type</label>
+                <% const types = ["Standard", "VIP", "IMAX"] %>
+                <select name="type" id="type" required>
+                    <option value="" disabled <%= !hall.type ? "selected" : "" %>>
+                        Select a hall type
+                    </option>
+                    <% types.forEach(type => { %>
+                        <option 
+                            value="<%= type  %>"
+                            <%= (hall.type == type)? "selected" : ""  %>
+                        ><%= type  %></option>
+
+                    <%})%>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="totalSeats">Total Seats</label>
+                <input type="number" name="totalSeats" id="totalSeats" min="1" required value="<%= hall.totalSeats || "" %>">
+            </div>
+
+
+
+
+

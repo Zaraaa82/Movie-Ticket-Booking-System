@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <%- include('../partials/head') %>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <!-- Page Header -->
+     
+    <main>
+
+        <section class="content card-container">
+            <a href="/halls" class="primary-color" id="goback-btn"> ⮜ Back to halls</a>
+            
+            <form method="POST" action="/halls">
+                <div class="page-header">
+                    <div class="page-heading">
+                        <h1>Add New Hall</h1>
+                        <p>Fill in the details below to add a new hall.</p>
+                    </div>
+                </div>
+                <div id="form-container">
+
+                    <section class="form-section" id="basic-info-section">
+                        <fieldset>
+                        <%- include('./partials/form', {hall:{}}) %>
+
+                        <section class="form-actions">
+                            <a href="/halls" class="secondary-btn btn">Cancel</a>
+                            <button type="submit" class="primary-btn btn">Add Hall</button>
+                        </section>
+                    </fieldset>
+                </section>
+            </div>
+        
+
+            </form>
+
+        </section>
+
+    </main>
+    
+</body>
+</html>
