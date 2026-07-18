@@ -1,5 +1,30 @@
 const mongoose = require('mongoose');
 
+
+const rowSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        trim: true,
+        minLngth: 1,
+        maxLength: 1,
+        match: /^[A-Z]$/
+    },
+    numberOfSeats:{
+        type: Number,
+        required: true,
+        min: 1,
+        max: 20
+    },
+    type: {
+        type: String,
+        enum: ["Regular", "Premium", "VIP", "Accessible"],
+        default: "Regular",
+        required: true
+    }
+
+},{timestamps: true});
+
 const hallSchema = new mongoose.Schema({
    name: {
         type: String,
@@ -13,8 +38,8 @@ const hallSchema = new mongoose.Schema({
         enum: ["Standard", "VIP", "IMAX"],
         default: "Standard"
     },
-    totalSeats: {
-        type: Number,
+    rows: {
+        type: [rowSchema],
         required: true,
         min: 1
     }

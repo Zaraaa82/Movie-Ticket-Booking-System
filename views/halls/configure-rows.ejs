@@ -17,20 +17,30 @@
             <a href="/halls" class="primary-color" id="goback-btn"> ⮜ Back to halls</a>
             <div class="page-header">
                 <div class="page-heading">
-                    <h1>Add New Hall</h1>
-                    <p>Fill in the details below to add a new hall.</p>          
+                    <h1>Configure Rows</h1>
+                    <p>Set the number of seats and seat type for each row.</p>        
+                    <div class="hall-summary">
+                        <span>Summary: </span>
+                        <span><strong>Hall:</strong> <%= name %></span>, 
+                        <span><strong>Type:</strong> <%= type %></span>, 
+                        <span><strong>Rows:</strong> <%= numberOfRows %></span>
+                    </div>  
                 </div>
             </div>
-                <form method="POST" action="/halls/new">
+            <form method="POST" action="/halls">
                 <div id="form-container">
 
                     <section class="form-section" id="basic-info-section">
                         <fieldset>
-                        <%- include('./partials/form', {hall:{}}) %>
+                            <input type="hidden" name="name" id="name" value="<%= name %>">
+                            <input type="hidden" name="type" id="type" value="<%= type %>">
+
+
+                        <%- include('./partials/rows-form', {hall:{}, numberOfRows}) %>
 
                         <section class="form-actions">
                             <a href="/halls" class="secondary-btn btn">Cancel</a>
-                            <button type="submit" class="primary-btn btn">Continue</button>
+                            <button type="submit" class="primary-btn btn">Create hall</button>
                         </section>
                     </fieldset>
                 </section>

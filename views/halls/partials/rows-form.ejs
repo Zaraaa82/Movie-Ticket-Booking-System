@@ -1,0 +1,32 @@
+<% for( let i=0; i<numberOfRows ; i++){ %>
+    <% const rowNames = String.fromCharCode(65 + i) %>
+    <input type="hidden" name="rowNames" value="<%= rowNames  %>">
+
+    <div class="field-grid">
+        
+        <div class="form-group">
+            <label for="row-<%= rowNames  %>"> No. of seats for Row <%= rowNames  %></label>
+            <input 
+                type="number" 
+                name="numberOfSeats" 
+                id="row-<%= rowNames  %>" 
+                value="<%= (hall?.rows?.[i]?.numberOfSeats) || '' %>"
+            >
+        </div>
+        <div class="form-group">
+            <label for="row-type-<%= i %>">Type for row <%= rowNames  %></label>
+            <select name="rowTypes" id="row-type-<%= i %>" required>
+                <% ["Regular", "Premium", "VIP", "Accessible"].forEach(type =>{ %>
+                    <option 
+                        value="<%= type  %>"
+                        <%= (hall?.rows?.[i]?.type == type) ? 'selected' : '' %>
+                    ><%= type  %></option>
+                <% }) %>
+            </select>
+
+
+        </div>
+
+    </div>
+
+<% } %>    

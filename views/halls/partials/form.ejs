@@ -1,7 +1,7 @@
 
             <legend>Hall Information</legend>
             <div class="form-group">
-                <label for="name">name</label>
+                <label for="name">Name</label>
                 <input type="text" name="name" id="name"  placeholder="Enter hall name" value="<%= hall.name || ''  %>" required>
             </div>
             
@@ -24,8 +24,8 @@
 
 
             <div class="form-group">
-                <label for="totalSeats">Total Seats</label>
-                <input type="number" name="totalSeats" id="totalSeats" min="1" required value="<%= hall.totalSeats || "" %>">
+                <label for="numberOfRows">Number of rows</label>
+                <input type="Number" name="numberOfRows" id="numberOfRows" min="1" max="20" placeholder="e.g. 8" required>
             </div>
 
 

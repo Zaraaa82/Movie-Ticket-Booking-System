@@ -36,7 +36,7 @@
                         <tr>
                             <td><%= hall.name  %></td>
                             <td><%= hall.type  %></td>
-                            <td><%= hall.totalSeats  %></td>
+                            <td><%= hall.rows.reduce((total, row) => total + row.numberOfSeats,0);  %></td>
                             <td class="table-actions">
                                 <a href="/halls/<%= hall._id %>/edit" class="secondary-btn btn">✎ Edit</a>
                                 <form method="POST" action="/halls/<%= hall._id %>?_method=DELETE" >
