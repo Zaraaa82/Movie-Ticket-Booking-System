@@ -8,9 +8,9 @@ const showtimeSchema = new mongoose.Schema({
         ref: "Movie",
         required: true
     },
-    theater: {
+    hall: {
         type: ObjectId,
-        ref: "Theater",
+        ref: "Hall",
         required: true
     },
     startTime: {

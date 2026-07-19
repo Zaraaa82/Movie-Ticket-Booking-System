@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
+const pricesByType = {
+    Regular: 3,
+    Premium: 4,
+    VIP: 6,
+    Accessible: 3
+};
 
 const seatSchema = new mongoose.Schema({
     showtime: {
@@ -10,14 +16,17 @@ const seatSchema = new mongoose.Schema({
     },
     row: {
         type: String,
-        enum: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
-        required: true
+        trim: true,
+        minLength: 1,
+        maxLength: 1,
+        required: true,
+        match: /^[A-Z]$/
     },
     number: {
         type: Number,
         required: true,
         min: 1,
-        max:10,
+        max: 20,
         required: true
     },
     type: {
@@ -29,6 +38,7 @@ const seatSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 2,
+        default: function(){return pricesByType[this.type]}
     },
     isAvailable: {
         type: Boolean,
@@ -37,8 +47,9 @@ const seatSchema = new mongoose.Schema({
 
 },{timestamps: true})
 
+seatSchema.index({showtime:1 , row:1, number:1}, {unique: true});
 
-const Seat = mongoose.model("Seat", seatSchema)
+const Seat = mongoose.model("Seat", seatSchema);
 
 
 module.exports = Seat

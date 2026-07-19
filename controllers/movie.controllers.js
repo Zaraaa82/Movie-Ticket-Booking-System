@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Movie = require('../models/Movie');
+const Showtime = require('../models/Showtime');
 const movieMetadata = require("../middleware/loadMovieMetadata");
 const isSignedIn = require("../middleware/is-signed-in");
 const isAdmin = require("../middleware/is-admin");
@@ -22,12 +23,41 @@ router.get('/new', isAdmin, movieMetadata, (req, res)=>{
 
 router.get('/:movieId', async(req, res)=>{
     try{
-        const foundMovie = await Movie.findById(req.params.movieId).populate("genre");
-        if(foundMovie){
-            res.render('movies/details.ejs',{movie: foundMovie});
-        }else{
-            res.send("Movie not found.");
+        const {movieId} = req.params;
+        const {date} = req.query;
+
+        const today = new Date().toLocaleDateString('en-CA');
+        
+        
+        // Retrive the selected movie
+        const foundMovie = await Movie.findById(movieId).populate("genre");
+        if(!foundMovie){
+            return res.send("Movie not found.");
         }
+        
+        
+        // Retrieve the movie's showtimes ordered from earliest to latest
+        const allShowtimes = (await Showtime.find({movie: movieId}).populate('hall').sort({startTime: 1})).filter(show=> {
+            const showDate = show.startTime.toLocaleDateString("en-CA");
+            return showDate >= today;
+        })
+
+        const firstDate = (allShowtimes.length > 0) ? allShowtimes[0].startTime.toLocaleDateString('en-CA'): null;
+        const selectedDate = date || firstDate || today ; 
+
+        // Get all showtimes available on the selected date
+        const currentDateShowtimes = allShowtimes.filter(show=> selectedDate === show.startTime.toLocaleDateString("en-CA"));
+
+
+        const showtimeDates = allShowtimes.map(show=> show.startTime);
+
+        res.render('movies/details.ejs',{
+            movie: foundMovie, 
+            today,
+            selectedDate,
+            showtimeDates,
+            showtimes: currentDateShowtimes
+        });
 
     }catch(error){
         console.log('Error:', error);

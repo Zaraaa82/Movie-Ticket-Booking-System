@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <main>
+
+        <section class="content card-container">
+            <a href="/movies/<%= movie._id  %>" class="primary-color" id="goback-btn"> ⮜ Back to Movie</a>
+            <section class="card-container">
+
+                <div class="page-header">
+                    <div class="page-heading">
+                        <h1>Select Showtime Date</h1>
+                        <p>Choose a date to view the available halls and showtime options.</p>
+                    </div>
+                </div>
+
+                <form method="POST" action="/showtimes/<%= movie._id %>">
+                    <div id="form-container">
+                        <section class="form-section">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="date">Date</label>
+                                    <input type="Date" name="date" id="date" min="<%= minimumDate %>" required>
+                                </div>
+
+                                <section class="form-actions">
+                                    <a href="/movies/<%= movie._id %>" class="secondary-btn btn">Cancel</a>
+                                    <button type="submit" class="primary-btn btn">Continue</button>
+                                </section>
+                            </fieldset>
+                        </section>
+                    </div>
+    
+                </form>
+    
+            </section>
+            </section>
+
+    </main>
+    
+</body>
+</html>

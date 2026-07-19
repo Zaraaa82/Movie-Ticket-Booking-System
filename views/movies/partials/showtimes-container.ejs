@@ -1,0 +1,22 @@
+<div class="showtimes-container">
+    <% ["Standard", "VIP", "IMAX"].forEach(hallType => { %>
+        <%const hallShowtimes = showtimes.filter(show => show.hall.type == hallType); %>
+        <% if(hallShowtimes.length > 0) {%>
+            <section class="hall-showtimes">
+                <h4><%= hallType %></h4>
+                <div class="showtime-list">
+                    <% hallShowtimes.forEach(show=>{ %>
+                        <% const time = show.startTime.toLocaleTimeString('en-US', {hour: 'numeric', minute: "2-digit"}) %>
+                        <a 
+                            href="/bookings/new/<%= show._id %>"
+                            class="showtime-option"
+                        >
+                        <%= time  %>
+                        </a>
+                    <% }) %>
+                </div>
+
+            </section>
+        <% } %>
+    <% }) %>
+</div>

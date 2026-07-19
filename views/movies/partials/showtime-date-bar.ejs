@@ -1,0 +1,22 @@
+<div id="showtime-date-bar">
+    <% const uniqueDates = [...new Set(showtimeDates.map(date => date.toLocaleDateString("en-CA")))];%>
+    <% uniqueDates.forEach(date=> { %>
+        
+        <!-- Formating -->
+        <% const dateValue = date; %>
+        <% date = new Date(date+'T00:00:00'); %>
+        <% const weekDay = date.toLocaleDateString("en-GB", { weekday: "short"});%>
+        <% const day = date.toLocaleDateString("en-GB", {day: "numeric"});%>
+        <% const month = date.toLocaleDateString("en-GB", {month: "short"}); %>
+
+        <a 
+            href="/movies/<%= movie._id %>?date=<%= dateValue %>#showtime-date-bar"
+            class="showtime-date <%= (selectedDate === dateValue )? 'selected-showtime' : '' %>"
+        >
+            <span class="showtime-weekDay"><%= weekDay %></span>
+            <span class="showtime-dayAndMonth"><%= day + ' ' + month  %></span>
+        </a>
+
+    <% }) %>
+</div>
+

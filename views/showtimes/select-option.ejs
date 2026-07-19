@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <main>
+
+        <section class="content card-container">
+            <a href="/movies/<%= movie._id  %>" class="primary-color" id="goback-btn"> ⮜ Back to Movie</a>
+            <section class="card-container">
+
+                <% if(availableOptions.length > 0) {%>
+
+                    <div class="page-header">
+                        <div class="page-heading">
+                            <h1>Select Hall and Time</h1>
+                            <p>Choose one of the available hall and time options for this movie.</p>
+                        </div>
+                    </div>
+                    <form method="POST" action="/showtimes/new/<%= movie._id %>">
+                        <div id="form-container">
+                            <section class="form-section">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="Selection">Hall and Time</label>
+                                        
+                                        <select name="selection" id="selection" required>
+                                            <% availableOptions.forEach(option =>{ %> 
+                                                <% let {hallId, hallName, hallType, availableTimes} = option %>
+                                                <optgroup label="<%= hallName + ' — ' + hallType  %>">
+                                                <% availableTimes.forEach( availableTime=> { %>
+                                                    <% let {time, startTime, endTime} = availableTime %>
+                                                    <% let formatedStrartTime = startTime.toLocaleTimeString("en-US", {hour: "numeric", minute: "2-digit"}) %>
+                                                    <% startTimeISO = startTime.toISOString(); %>
+                                                    <% endTimeISO = endTime.toISOString(); %>
+                                                    <option 
+                                                        value="<%= hallId  %>|<%= startTimeISO %>|<%= endTimeISO %>"
+                                                    ><%= formatedStrartTime  %></option> 
+                                                <% }) %>
+                                                </optgroup>
+
+                                            <% }) %>
+
+                                        </select>
+
+                                    </div>
+    
+                                    <section class="form-actions">
+                                        <a href="/showtimes/new/<%= movie._id %>" class="secondary-btn btn">back</a>
+                                        <button type="submit" class="primary-btn btn">Add Showtime</button>
+                                    </section>
+                                </fieldset>
+                            </section>
+                        </div>
+        
+                    </form>
+                <% }else{ %>
+                    <form method="get" action="/showtimes/<%= movie._id %>">
+                        <div id="form-container">
+                            <section class="form-section">
+                                <fieldset>
+                                    <label for="">No halls or times are available on this date.</label>
+                                    <button type="submit" class="primary-btn btn">Choose Another Date</button>
+                                    
+                                </fieldset>
+                            </section>
+                        </div>
+                <% } %>
+    
+            </section>
+            </section>
+
+    </main>
+    
+</body>
+</html>
