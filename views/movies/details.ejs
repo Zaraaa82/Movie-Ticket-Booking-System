@@ -9,71 +9,86 @@
 <body>
     <%- include('../partials/navbar') %>
     <main>
-        <!-- Page Header -->
+        <section class="content">
 
-        <div id="movie-details-container">
-            <a href="/movies" class="primary-color" id="goback-btn">⮜ Back to Movies</a>
-
-            <% const durationHours = Math.floor(movie.duration / 60); %>
-            <% const durationMinutes = movie.duration % 60; %>
-
-            <section id="movie-overview">
-                <img id="movie-poster" src="<%= movie.posterUrl %>" alt="<%= movie.title %> Poster">
-                <div id="movie-details">
-                    <div class="movie-header">
-                        <h1 id="movie-title"><%= movie.title  %></h1>
-                        <div class="movie-badges">
-                            <% if (movie.isFeatured) { %>
-                                <span class="featured-badge">⭐ Featured</span>
-                            <% } %>
-
-                            <% if(movie.isTrending){ %>
-                                <span class="trending-badge">🔥 Trending</span>
-                            <% } %>
-                        </div>
-                         <p id="movie-meta">
-                            <span><%= movie.ageRating  %></span> |
-                            <span>
-                                <% if(durationHours){ %>
-                                    <%= durationHours+'h' %>     
-                                <% } %>
-                                <% if(durationMinutes){ %>
-                                    <%= durationMinutes+'m' %>
-                                <% } %>
+            <div id="movie-details-container">
+                <a href="/movies" class="primary-color" id="goback-btn">⮜ Back to Movies</a>
+    
+                <% const durationHours = Math.floor(movie.duration / 60); %>
+                <% const durationMinutes = movie.duration % 60; %>
+    
+                <section id="movie-overview">
+                    <img id="movie-poster" src="<%= movie.posterUrl %>" alt="<%= movie.title %> Poster">
+                    <div id="movie-details">
+                        <div class="movie-header">
+                            
+                            <h1 id="movie-title"><span><%= movie.title  %></span> 
+                                <span 
+                                    class="movie-status-badge
+                                    <%= (movie.status === 'Now Showing')? 'now-showing':'coming-soon' %>"
+                                >
+                                    <%= movie.status  %>
                             </span>
-                            <span><%= movie.language %></span> |
-                            <span> 
-                                <%= movie.releaseDate.toLocaleDateString('en-US',{month: "short", day: "numeric", year:"numeric" })  %>
-                            </span> |
-                            <span><%= movie.status  %></span>                    
-                        </p>
-                        <div class="genre-container">
-                            <% movie.genre.forEach(genre => { %>
-                                <span class="movie-genre-badge"><%= genre.name  %></span>
-                                <% }); %>
+                            </h1>
+                             <p id="movie-meta">
+                                <span><%= movie.ageRating  %></span> |
+                                <span>
+                                    <% if(durationHours){ %>
+                                        <%= durationHours+'h' %>     
+                                    <% } %>
+                                    <% if(durationMinutes){ %>
+                                        <%= durationMinutes+'m' %>
+                                    <% } %>
+                                </span>|
+                                <span><%= movie.language %></span> |
+                                <span> 
+                                    <%= movie.releaseDate.toLocaleDateString('en-US',{month: "short", day: "numeric", year:"numeric" })  %>
+                                </span>              
+                            </p>
+                            <div class="genre-container">
+                                <% movie.genre.forEach(genre => { %>
+                                    <span class="movie-genre-badge"><%= genre.name  %></span>
+                                    <% }); %>
+                            </div>
+                            <div id="movie-description">
+                                <h4>About the Movie</h4>
+                                <p><%= movie.description  %></p>
+                            </div>
+    
                         </div>
-                        <div id="movie-description">
-                            <h4>About the Movie</h4>
-                            <p><%= movie.description  %></p>
+                            <div id="control-btns">
+                            <a href="<%=movie.trailerUrl%>" class="primary-btn" target="_blank">▶ Watch Trailer</a>
+                            <% if(user && user.isAdmin){ %>
+                                <a href="/movies/<%= movie._id  %>/edit" class="btn secondary-btn ">✎ Edit</a>
+                                <form method="post" action="/movies/<%= movie._id  %>?_method=DELETE">
+                                    <button class="btn delete-btn" >🗑 Delete</button>
+                                </form>
+                            <% } %>
                         </div>
-
+    
                     </div>
-                        <div id="control-btns">
-                        <% if(movie.status == "Now Showing") {%>
-                            <a href="/showtimes/<%= movie._id %>" class="primary-btn" >🎟 Showtimes</a>
-                        <% } %>
-                        <a href="<%=movie.trailerUrl%>" class="secondary-btn" target="_blank">▶ Watch Trailer</a>
-                        <% if(user && user.isAdmin){ %>
-                            <a href="/movies/<%= movie._id  %>/edit" class="btn secondary-btn ">✎ Edit</a>
-                            <form method="post" action="/movies/<%= movie._id  %>?_method=DELETE">
-                                <button class="btn delete-btn" >🗑 Delete</button>
-                            </form>
-                        <% } %>
+                </section>
+            </div>
+            <% if(movie.status == "Now Showing" || user?.isAdmin) { %>
+                <section class=" page-header page-section card">
+                    <div class="content showtime-section">
+                        <div class="row-container showtime-section-header">
+                            <h1 id="showtimes">Showtimes</h1>
+                            <% if(user?.isAdmin) {%>
+                                <a href="/showtimes/<%= movie._id  %>" class="primary-btn btn">Add Showtime</a>
+                            <% } %>
+                        </div>
                     </div>
 
-                </div>
-            </section>
-        </div>
+                    <%- include('partials/showtime-date-bar.ejs') %>
+                    <%- include('partials/showtimes-container.ejs') %>
+                    
+
+
+                </section>
+            <% } %>
+        </section>
+
 
 
     </main>

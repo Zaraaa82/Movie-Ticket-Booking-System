@@ -15,24 +15,26 @@
 
         <section class="content card-container">
             <a href="/movies" class="primary-color" id="goback-btn"> ⮜ Back to Movies</a>
-            
-            <form method="POST" action="/movies">
+            <section class="card-container">
+
                 <div class="page-header">
                     <div class="page-heading">
                         <h1>Add New Movie</h1>
                         <p>Fill in the details below to add a new movie to the collection.</p>
                     </div>
                 </div>
-                <%- include('./partials/movie-form', {movie:{}, genres, languages, ageRatings}) %>
-
-                <section class="form-actions">
-                    <a href="/movies" class="secondary-btn btn">Cancel</a>
-                    <button type="submit" class="primary-btn btn">Add Movie</button>
-                </section>
-
-            </form>
-
-        </section>
+                <form method="POST" action="/movies">
+                    <%- include('./partials/movie-form', {movie:{}, genres, languages, ageRatings}) %>
+    
+                    <section class="form-actions">
+                        <a href="/movies" class="secondary-btn btn">Cancel</a>
+                        <button type="submit" class="primary-btn btn">Add Movie</button>
+                    </section>
+    
+                </form>
+    
+            </section>
+            </section>
 
     </main>
     

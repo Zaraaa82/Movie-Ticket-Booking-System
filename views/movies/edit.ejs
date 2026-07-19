@@ -12,25 +12,27 @@
         <main>
 
             
-            <section class="content">
-                <a href="/movies" class="primary-color" id="goback-btn"> ⮜ Back to Movies</a>
-
-                <form method="POST" action="/movies/<%= movie._id  %>?_method=PUT">
-                    <div class="page-header">
+            <section class="content card-container">
+                <a href="/movies/<%= movie._id  %>" class="primary-color" id="goback-btn"> ⮜ Back to Movie</a>
+                <div class="page-header">
                     <div class="page-heading">
                         <h1>Update Movie</h1>
                         <p>Edit the movie details below and save your changes.</p>
                     </div>
                 </div>
-                    <%- include('./partials/movie-form', {movie, genres, languages, ageRatings}) %>
+                <section class="card-container">
 
-                    <section class="form-actions">
-                        <a href="/movies/<%= movie._id  %>" class="secondary-btn btn">Cancel</a>
-                        <button type="submit" class="primary-btn btn">Update Movie</button>
-                    </section>
-
-                </form>
-
+                    <form method="POST" action="/movies/<%= movie._id  %>?_method=PUT">
+                        <%- include('./partials/movie-form', {movie, genres, languages, ageRatings}) %>
+                        
+                        <section class="form-actions">
+                            <a href="/movies/<%= movie._id  %>" class="secondary-btn btn">Cancel</a>
+                            <button type="submit" class="primary-btn btn">Update Movie</button>
+                        </section>
+    
+                    </form>
+    
+                </section>
             </section>
 
         </main>
