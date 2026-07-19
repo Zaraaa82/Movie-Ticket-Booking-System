@@ -40,9 +40,13 @@ const seatSchema = new mongoose.Schema({
         min: 2,
         default: function(){return pricesByType[this.type]}
     },
-    isAvailable: {
+    isBooked: {
         type: Boolean,
-        default: true
+        default: false
+    },
+    isDeleted:{
+        type: Boolean,
+        default: false
     }
 
 },{timestamps: true})

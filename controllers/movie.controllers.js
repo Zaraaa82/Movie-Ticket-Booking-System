@@ -8,7 +8,7 @@ const isAdmin = require("../middleware/is-admin");
 
 router.get('/', async (req, res)=>{
     try{
-        const allMovies = await Movie.find().populate("genre");
+        const allMovies = await Movie.find({isDeleted: false}).populate("genre");
         res.render('movies/all.ejs',{movies: allMovies});
         
     }catch(error){
@@ -82,7 +82,17 @@ router.get('/:movieId/edit', isAdmin, movieMetadata, async(req, res)=>{
 
 router.delete('/:movieId', isAdmin, async(req, res)=>{
     try{
-        const deletedMovie = await Movie.findByIdAndDelete(req.params.movieId);
+        
+        const deletedMovie = await Movie.findByIdAndUpdate(req.params.movieId, {isDeleted: true});
+        const deletedShowtimes = await Showtime.updateMany({movie: req.params.movieId}, {isDeleted: true})
+        const showtimes = await Showtime.find({movie: req.params.movieId});
+        for(let show of showtimes){
+            const deletedSeats = await Seat.updateMany({showtime: show._id}, {isDeleted: true});
+        }
+
+        const updatedBooking = await Booking.updateMany({movie: req.params.movieId}, {isDeleted: true})
+        
+
         if(deletedMovie){
            res.redirect('/movies');
         }else{

@@ -20,6 +20,10 @@ const showtimeSchema = new mongoose.Schema({
     endTime: {
         type: Date,
         required: true
+    },
+    isDeleted:{
+        type: Boolean,
+        default: false
     }
 
 },{timestamps: true})

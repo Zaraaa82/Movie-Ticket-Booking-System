@@ -37,6 +37,10 @@ const bookingSchema = new mongoose.Schema(
       enum: ["Confirmed" | "Cancelled"],
       required: true,
     },
+    isDeleted:{
+      type: Boolean,
+      default: false
+    }
   },
   { timestamps: true },
 );
