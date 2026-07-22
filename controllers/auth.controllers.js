@@ -67,8 +67,10 @@ router.post("/sign-in", async (req, res) => {
     isAdmin: userInDatabase.isAdmin,
     email: userInDatabase.email
   };
+  const returnTo = req.session.returnTo || '/';
+  delete req.session.returnTo;
 
-  res.redirect("/");
+  res.redirect(returnTo);
 });
 
 
