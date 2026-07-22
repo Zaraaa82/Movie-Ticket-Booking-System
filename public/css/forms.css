@@ -1,0 +1,125 @@
+.form-page-header{
+    align-items: flex-start;
+    margin-bottom: 0.7rem;
+}
+.card-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.card-container > *{
+    width: 100%;
+}
+
+.form-card{
+    padding: 1.5rem 0;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    gap: 2rem;
+    
+}
+#form-container, .form-section{
+    width: 100%;
+}
+
+.form-section fieldset{
+    background-color: var(--color-card);
+    border: 1.5px solid var(--color-border);
+    border-radius: 15px;
+    width: 100%;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.form-section legend {
+    padding: 0 0.7rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0 2rem
+}
+.form-group label{
+    cursor: pointer;
+}
+input, textarea, select{
+    padding: 0.9rem 1rem;
+    background-color: var(--color-input-bg);
+    color: #c6c9cc;
+    border: var(--color-input-border) 1px solid;
+    border-radius: 10px;
+    transition:all 0.2s ease;    
+}
+textarea{
+    resize:vertical;
+    min-height: 5rem;
+
+}
+input::placeholder,
+textarea::placeholder{
+    color: var(--color-input-placeholder);
+}
+input:focus,
+textarea:focus,
+select:focus{
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.checkbox-group{
+    padding-left:1rem;
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    column-gap: 1.5rem;
+    row-gap: 0.5rem;
+    justify-content: space-between;
+    width: 100%;
+}
+.checkbox-field{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    margin: 0;
+}
+.checkbox-field input[type="checkbox"] {
+    accent-color: var(--color-primary);
+}
+.checkbox-field label {
+    font-weight: 400;
+    cursor: pointer;
+}
+
+
+#form-container{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.field-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
+    row-gap: 1rem;
+}
+.form-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+    margin-top: 1rem;
+}

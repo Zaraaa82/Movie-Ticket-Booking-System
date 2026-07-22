@@ -1,0 +1,6 @@
+.primary-color{
+    color: var(--color-primary);
+}
+.muted-text{
+    color: var(--color-text-muted);
+}

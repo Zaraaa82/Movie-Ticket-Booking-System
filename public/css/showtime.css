@@ -1,0 +1,68 @@
+.showtime-section{
+    padding: 1rem;
+}
+.showtime-section-header{
+    width:95%;
+}
+.showtime-date {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    width: 5rem;
+  
+}
+.showtime-date .showtime-weekDay{
+    color: var(--color-text-muted);
+}
+.selected-showtime {
+    background-color: var(--color-selected-showtime-bg);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 1.5px solid var(--color-primary);
+}
+
+.selected-showtime .showtime-weekDay {
+    color: var(--color-primary-dark);
+}
+
+#showtime-date-bar{
+    display: flex;
+    gap: 1rem;
+    justify-content: start;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    width: 95%;
+}
+.showtimes-container{
+    margin: 1rem 0;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.hall-showtimes{
+    display: flex;
+    gap: 1rem;
+    justify-content: start;
+    align-items: start;
+}
+
+.showtime-list{
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+.showtime-list a{
+    border: 1px solid var(--color-primary);
+    color: white;
+    border-radius: 0.7rem;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.8rem;
+    transition: all 0.3 ease-in-out;
+}
+.showtime-list a:hover{
+    background-color: var(--color-primary);
+    color: white;
+}

@@ -1,0 +1,32 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Londrina+Shadow&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&display=swap');
+
+:root{
+    --color-background: #041024;
+    --color-navbar: #010B1C;
+    --color-primary: #E3364E;
+    --color-primary-dark: #c52d41;
+    --color-border: #192235;
+    --color-text: white;
+    --color-text-muted: #999FAC;
+    --color-card: #0B1933;
+    --color-input-border: #233654;
+    --color-input-bg: #08172D;
+    --color-input-placeholder:#7D8CA5; 
+    --color-selected-showtime-bg: #e3364d7f;
+
+    /* Seat Map*/
+    --color-seat-map: #041229;
+    --color-seat-top: #7A86A3;
+    --color-seat-bottom: #6D7B98;
+    --color-seat-top-selected: #cb3940;
+    --color-seat-bottom-selected: #c52d41;
+    --color-seat-top-booked: #2e405e;
+    --color-seat-bottom-booked: #253450;
+    --color-seat-available-top-hover: rgb(175, 72, 82);
+    --color-seat-available-bottom-hover: #9B2F3A;
+    --color-screen-color: aliceblue;
+    --shadow-screen: drop-shadow(0 7px 7px #b9aee8);
+    
+}

@@ -1,0 +1,26 @@
+html {
+    scroll-behavior: smooth;
+}
+*, *::before, *::after{
+    box-sizing: border-box;
+    color: white;
+    margin: 0;
+    font-family: "Montserrat", "Inter", sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    
+}
+body{
+    margin: 0;
+    background-color: var(--color-background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+a{
+    text-decoration: none;
+    color:black;
+}
+h1{
+    font-weight: 700;
+}

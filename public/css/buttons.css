@@ -1,0 +1,39 @@
+.primary-btn, .btn{
+    vertical-align: middle;
+    
+    border: var(--color-primary) 1px solid;
+    border-radius: 10px;
+    width: fit-content;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+.primary-btn{
+    color: white;  
+    background-color: var(--color-primary);
+
+}
+
+.primary-btn:hover, .btn:hover{
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+.primary-btn:active, .btn:active{
+    transform: translateY(-1px);
+    filter: brightness(0.9);
+}
+.secondary-btn{
+    color: white;
+    border-color: white;
+    
+}
+.delete-btn{
+    background-color: transparent;
+    color: var(--color-primary);
+
+}
