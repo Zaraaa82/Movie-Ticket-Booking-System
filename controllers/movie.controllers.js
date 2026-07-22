@@ -8,8 +8,11 @@ const isAdmin = require("../middleware/is-admin");
 
 router.get('/', async (req, res)=>{
     try{
-        const allMovies = await Movie.find({isDeleted: false}).populate("genre");
-        res.render('movies/all.ejs',{movies: allMovies});
+        const selectedStatus = req.query.status || 'now-showing';
+        const status = (selectedStatus === 'now-showing')? 'Now Showing' : 'Coming Soon';
+
+        const allMovies = await Movie.find({isDeleted: false, status}).populate("genre");
+        res.render('movies/all.ejs',{movies: allMovies, selectedStatus});
         
     }catch(error){
         console.log(error);

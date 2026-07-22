@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%= movie.title %> | MTBS</title>
     <%- include('../partials/head') %>
 </head>
 <body>
@@ -18,7 +18,7 @@
                 <% const durationMinutes = movie.duration % 60; %>
     
                 <section id="movie-overview">
-                    <img id="movie-poster" src="<%= movie.posterUrl %>" alt="<%= movie.title %> Poster">
+                    <img id="movie-poster" class="movie-poster" src="<%= movie.posterUrl %>" alt="<%= movie.title %> Poster">
                     <div id="movie-details">
                         <div class="movie-header">
                             

@@ -3,70 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Movies | MTBS</title>
     <%- include('../partials/head') %>
     <script src=""></script>
 </head>
 <body>
-    <!-- Site Header -->
     <%- include('../partials/navbar') %>
+    <header class="page-header">
+        <div class="page-heading">
+            <h1>Movies</h1>
+            <p>Browse our collection of movies and find your next favorite</p>
+        </div>
+        <div class="page-actions">
+            <nav class="page-navigation">
+               <a href="/movies?status=now-showing" class="<%= selectedStatus === 'now-showing' ? 'selected-action' : '' %>" >Now Showing</a>
+               <a href="/movies?status=coming-soon" class="<%= selectedStatus === 'coming-soon' ? 'selected-action' : '' %>">Coming Soon</a> 
+            </nav>
+        </div>
+    </header>
     
     <main>
-        <!-- Page Header -->
-         <section class="content">
 
-             <div class="page-header">
-                 <div class="page-heading">
-                     <h1>Movies</h1>
-                     <p>Browse our collection of movies and find your next favorite.</p>
-                 </div>
-                 <div class="page-actions">
-                     <% if(user && user.isAdmin){ %>
-                         <a href="/movies/new" class="primary-btn">+ Add Movie</a>
-                     <% } %>
-                 </div>
-             </div>
-             <nav class="page-navigation">
-                 <a href="#now-showing">Now Showing</a> |
-                 <a href="#coming-soon">Coming Soon</a>
-             </nav>
-     
-     
-             <% const nowShowingMovies = movies.filter(movie=> movie.status == "Now Showing") %>
-             <% const comingSoonMovies = movies.filter(movie=> movie.status == "Coming Soon") %>
-     
-             <section class="content">
-                 <section>
-                     <div class="page-header page-section">
-                         <div class="page-heading">
-                             <h1 id="now-showing">Now Showing</h1>
-                         </div>
-                         <div class="movie-grid">
-                             <% nowShowingMovies.forEach(movie => { %>
-                                 <%- include('./partials/movie-card', { movie }) %>
-                             <% }) %>
-                         </div>
-                     </div>
-                 </section>
-                 <section >
-                     <div class="page-header page-section">
-                     <div class="page-heading">
-                         <h1 id="coming-soon">Coming Soon</h1>
-                     </div>
-                     <div class="movie-grid">
-                         <% comingSoonMovies.forEach(movie => { %>
-                             <%- include('./partials/movie-card', { movie }) %>
-                         <% }) %>
-                     </div>
-                 </div>
-                 </section>
-     
-     
-             </section>
-     
-     
-     
-
+        <section class="content">
+            <div class="admin-actions line-breaker">
+                <% if(user && user.isAdmin){ %>
+                    <a href="/movies/new" class="primary-btn">+ Add Movie</a>
+                <% } %>
+            </div>
+            <div class="movie-grid">
+                <% movies.forEach(movie => { %>
+                    <%- include('./partials/movie-card', { movie }) %>
+                <% }) %>
+            </div>   
          </section>     
 
 

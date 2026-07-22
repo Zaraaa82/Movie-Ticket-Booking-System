@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add Movie | MTBS</title>
     <%- include('../partials/head') %>
 </head>
 <body>
     <%- include('../partials/navbar') %>
 
-    <!-- Page Header -->
-     
     <main>
 
         <section class="content card-container">
             <a href="/movies" class="primary-color" id="goback-btn"> ⮜ Back to Movies</a>
             <section class="card-container">
 
-                <div class="page-header">
-                    <div class="page-heading">
+                <div class="page-header form-page-header">
+                    <div class="page-heading form-page-header"">
                         <h1>Add New Movie</h1>
                         <p>Fill in the details below to add a new movie to the collection.</p>
                     </div>
@@ -27,8 +25,8 @@
                     <%- include('./partials/movie-form', {movie:{}, genres, languages, ageRatings}) %>
     
                     <section class="form-actions">
-                        <a href="/movies" class="secondary-btn btn">Cancel</a>
                         <button type="submit" class="primary-btn btn">Add Movie</button>
+                        <a href="/movies" class="secondary-btn btn">Cancel</a>
                     </section>
     
                 </form>

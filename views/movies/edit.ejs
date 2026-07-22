@@ -3,19 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Edit <%= movie.title %> | MTBS</title>
         <%- include('../partials/head') %>
     </head>
     <body>
         <%- include('../partials/navbar') %>
 
         <main>
-
             
             <section class="content card-container">
                 <a href="/movies/<%= movie._id  %>" class="primary-color" id="goback-btn"> ⮜ Back to Movie</a>
-                <div class="page-header">
-                    <div class="page-heading">
+                <div class="page-header form-page-header">
+                    <div class="page-heading form-page-header">
                         <h1>Update Movie</h1>
                         <p>Edit the movie details below and save your changes.</p>
                     </div>
@@ -26,8 +25,8 @@
                         <%- include('./partials/movie-form', {movie, genres, languages, ageRatings}) %>
                         
                         <section class="form-actions">
-                            <a href="/movies/<%= movie._id  %>" class="secondary-btn btn">Cancel</a>
                             <button type="submit" class="primary-btn btn">Update Movie</button>
+                            <a href="/movies/<%= movie._id  %>" class="secondary-btn btn">Cancel</a>
                         </section>
     
                     </form>
