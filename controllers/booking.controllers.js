@@ -3,7 +3,23 @@ const isSignedIn = require("../middleware/is-signed-in");
 const Seat = require("../models/Seat");
 const Showtime = require("../models/Showtime");
 const Booking = require("../models/Booking");
+const { render } = require("ejs");
 
+router.get('/', async(req, res)=>{
+    const selectedStatus = req.query.status || 'Upcoming';
+    const bookings = await Booking.find({user: req.session.user._id, status: selectedStatus}).populate('selectedSeats').populate({
+        path:'showtime',
+        populate:[
+            {path:'movie'},
+            {path:'hall'}
+        ]
+    });
+
+
+    res.render('booking/my-bookings.ejs',{bookings, selectedStatus})
+    
+
+})
 
 router.get('/new/:showtimeId', async (req, res)=>{
     try{
@@ -39,7 +55,7 @@ router.post('/new/:showtimeId', async (req, res)=>{
         const selectedSeatIds = req.body.selectedSeatIds;
         
         if (!Array.isArray(selectedSeatIds) || selectedSeatIds.length == 0) {
-            return res.status(400).json({
+            return res.json({
                 message: 'Please select at least one seat.'
             });
         }
@@ -69,13 +85,33 @@ router.post('/new/:showtimeId', async (req, res)=>{
         await Seat.updateMany({_id: {$in: validSelectedSeatIds}}, {isBooked: true})
 
         return res.status(201).json({
-            redirectUrl: '/bookings/' + newBooking._id
+            redirectUrl: '/bookings'
         })
        
     }catch(error){
         console.log(error);
     }
 });
+
+router.post('/cancel/:bookingId', async(req, res)=>{
+    try{
+        const booking = await Booking.findOne({_id: req.params.bookingId, user: req.session.user._id});
+
+        booking.status = 'Cancelled';
+
+        if (!booking) {
+            return res.send('Booking not found.');
+        }
+
+        await booking.save();
+        await Seat.updateMany({_id: {$in: booking.selectedSeats}}, { isBooked: false });
+
+        res.redirect('/bookings?status=Cancelled');
+
+    }catch(error){
+        console.log(error);
+    }
+})
 
 
 

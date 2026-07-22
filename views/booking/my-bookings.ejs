@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/head') %>
+    <script src=""></script>
+</head>
+<body>
+    <!-- Site Header -->
+    <%- include('../partials/navbar') %>
+    
+    <header class="page-header">
+        <div class="page-heading">
+            <h1>My Bookings</h1>
+            <p>View and manage your movie ticket bookings</p>
+        </div>
+        <div class="page-actions">
+            <nav class="page-navigation">
+               <a href="/bookings?status=Upcoming" class="<%= selectedStatus === 'Upcoming' ? 'selected-action' : '' %>" >Upcoming</a>
+               <a href="/bookings?status=Previous" class="<%= selectedStatus === 'Previous' ? 'selected-action' : '' %>">Previous</a> 
+               <a href="/bookings?status=Cancelled" class="<%= selectedStatus === 'Cancelled' ? 'selected-action' : '' %>">Cancelled</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+         <section class="bookings-list">
+            <% bookings.forEach(booking => { %>
+                <% const seats = booking.selectedSeats.map(seat => seat.row + seat.number).join(', '); %>
+                <% const showtime = booking.showtime%>
+                <% const movie = showtime.movie %>
+                <% const hall = showtime.hall %>
+                <% console.log(movie) %>
+                <% const formattedDate = new Date(showtime.startTime).toLocaleDateString('en-GB', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'}); %>
+                <% const formattedTime = new Date(booking.showtime.startTime).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'}); %>     
+                
+                <div class="booking-card card">
+                    <img src="<%= movie.posterUrl %>" alt="<%= movie.title %> poster" class="movie-poster booking-poster">
+                    <div class="booking-info">
+                        <p class="booking-title"><%= movie.title %></p>
+                        <div class="bookingCard-details-container">
+                                <div class="booking-detail-item">
+                                    <img src="assets/images/calendar.png" alt="Calendar icon" class="bookingCard-icon">
+                                    <div class="booking-detail-info">
+                                        <span class="booking-label">Date</span> 
+                                        <span><%= formattedDate %></span>
+                                    </div>
+                                </div>
+                                <div class="booking-detail-item">
+                                    <img src="assets/images/clock.png" alt="clock icon" class="bookingCard-icon">
+                                    <div class="booking-detail-info">
+                                        <span class="booking-label">Time</span> 
+                                        <span><%= formattedTime %></span>
+                                    </div>      
+                                </div>
+                                <div class="booking-detail-item">
+                                    <img src="assets/images/pin.png" alt="Location pin icon" class="bookingCard-icon">
+                                    <div class="booking-detail-info">
+                                        <span class="booking-label">Hall</span> <span><%= hall.type + ' ' + hall.name %></span>
+                                    </div>
+                                </div>
+                                <div class="booking-detail-item">
+                                    <img src="assets/images/chair.png" alt="Cinema sea icon" class="bookingCard-icon">
+                                    <div class="booking-detail-info">
+                                        <span class="booking-label">Seats</span> <span><%= seats %></span>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div>
+                    <div class="booking-actions">
+                        <div class="booking-status">
+                            <img src="assets/images/film.png" alt="Film icon" id="booking-status-icon">
+                            <%= booking.status  %>
+                        </div>
+                            <div class="booking-detail-info">
+                                <span class="booking-label">Total</span> 
+                                <span>BHD <%= booking.totalPrice %></span>
+                            </div>
+                        <a href="/movies/<%= movie._id %>" class="btn secondary-btn">View Movie</a>
+
+                        <% if (booking.status === 'Upcoming') { %>
+                            <form action="/bookings/cancel/<%= booking._id %>" method="POST">
+                                <button type="submit" class="btn delete-btn">Cancel Booking</button>
+                            </form>
+                        <% } %>
+                    </div>
+                </div>
+            <% }) %>
+     
+     
+     
+
+         </section>     
+
+
+    </main>
+
+    
+</body>
+</html>
