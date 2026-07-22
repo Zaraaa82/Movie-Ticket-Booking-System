@@ -1,13 +1,23 @@
-<nav>
+<header id="site-header">
+    <nav>
+        <img src="/assets/images/logo.png" alt="logo" class="logo">
+        <a href="/" class="<%= (currentPath === '/')? 'active' : ''  %>">Home</a>
+        <a href="/movies" class="<%= (currentPath === '/movies')? 'active' : ''  %>">Movies</a>
+        <% if (user){ %>
+            <a href="/bookings" class="<%= (currentPath === '/bookings')? 'active' : ''  %>">Bookings</a>
+            <% if(user.isAdmin){  %>
+                <a href="/halls" class="<%= (currentPath === '/halls')? 'active' : ''  %>">Halls</a>
     
-    <a href="/">Homepage</a>
-    <% if (user){ %>
-    <a href="/auth/sign-out">Logout</a>
-
-    <% } else{ %>
-    <a href="/auth/sign-up">Sign up</a>
-    <a href="/auth/sign-in">Login</a>
-
-    <% } %>
+            <% } %>
     
-</nav>
+            <a href="/auth/sign-out">Logout</a>
+            
+    
+        <% } else{ %>
+        <a href="/auth/sign-up">Sign up</a>
+        <a href="/auth/sign-in">Login</a>
+    
+        <% } %>
+        
+    </nav>
+</header>
