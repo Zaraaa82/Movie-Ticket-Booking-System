@@ -7,7 +7,6 @@ const session = require('express-session');
 const methodOverride = require('method-override')
 const {MongoStore} = require("connect-mongo");
 const connectToDB = require('./db.js')
-
 // middleware imports
 const isSignedIn = require("./middleware/is-signed-in.js");
 const passUserToView = require("./middleware/pass-user-to-view.js");
@@ -25,7 +24,8 @@ const hallController = require("./controllers/hall.controllers.js");
 
 // Middleware
 app.use(express.static('public')) // my app will serve all static files from public folder
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(morgan('dev'))
 app.use(methodOverride('_method'))
 app.use(
@@ -64,8 +64,8 @@ app.use('/',indexController)
 app.use('/movies',movieController)
 app.use('/showtimes', isAdmin, showtimeController)
 app.use('/snacks', snackController)
-app.use('/booking', bookingController)
-app.use('/halls',isAdmin, hallController)
+app.use('/bookings', isSignedIn, bookingController)
+app.use('/halls', isAdmin, hallController)
 
 
 
