@@ -26,7 +26,7 @@ const seatSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 1,
-        max: 20,
+        max: 15,
         required: true
     },
     type: {
