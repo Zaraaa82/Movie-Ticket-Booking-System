@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Configure Hall Rows | MTBS</title>
         <%- include('../partials/head') %>
 </head>
 <body>
     <%- include('../partials/navbar') %>
 
-    <!-- Page Header -->
-     
     <main>
 
         <section class="content card-container">
             <a href="/halls" class="primary-color" id="goback-btn"> ⮜ Back to halls</a>
-            <div class="page-header">
-                <div class="page-heading">
+            <div class="page-header form-page-header">
+                <div class="page-heading form-page-header">
                     <h1>Configure Rows</h1>
                     <p>Set the number of seats and seat type for each row.</p>        
                     <div class="hall-summary">
@@ -39,8 +37,8 @@
                         <%- include('./partials/rows-form', {hall:{}, numberOfRows}) %>
 
                         <section class="form-actions">
-                            <a href="/halls" class="secondary-btn btn">Cancel</a>
                             <button type="submit" class="primary-btn btn">Create hall</button>
+                            <a href="/halls" class="secondary-btn btn">Cancel</a>
                         </section>
                     </fieldset>
                 </section>
