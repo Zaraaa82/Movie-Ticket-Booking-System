@@ -31,7 +31,6 @@
                 <% const showtime = booking.showtime%>
                 <% const movie = showtime.movie %>
                 <% const hall = showtime.hall %>
-                <% console.log(movie) %>
                 <% const formattedDate = new Date(showtime.startTime).toLocaleDateString('en-GB', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'}); %>
                 <% const formattedTime = new Date(booking.showtime.startTime).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'}); %>     
                 
