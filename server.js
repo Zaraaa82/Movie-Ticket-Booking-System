@@ -47,6 +47,12 @@ app.use(
 );
 app.use(passUserToView)
 
+// Track the current path to highlight the active navigation link
+app.use((req, res, next) => {
+    res.locals.currentPath = req.path;
+    next();
+});
+
 
 
 
