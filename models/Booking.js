@@ -21,21 +21,25 @@ const bookingSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    showtime: {
+      type: ObjectId,
+      ref: "Showtime",
+      required: true,
+    },
     selectedSeats: {
       type: [ObjectId],
       ref: "Seat",
       required: true,
     },
-    snacks: [snacks],
     totalPrice: {
       type: Number,
-      min: 0,
-      required: true,
+      required: true
     },
+
     status: {
       type: String,
-      enum: ["Confirmed" | "Cancelled"],
-      required: true,
+      enum: ["Upcoming", "Previous", "Cancelled"],
+      default: "Upcoming"
     },
     isDeleted:{
       type: Boolean,

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/head') %>
+    <script defer src="/js/seats.js"></script>
+</head>
+<body>
+    <!-- Site Header -->
+    <%- include('../partials/navbar') %>
+    <% const seatStatus = ['available', 'booked', 'selected']; %>
+    <% const seatType =  ['Regular', 'Premium', 'VIP', 'Accessible'] %>
+    <% const movie = showtime.movie;%>
+    <% const hall = showtime.hall;%>
+    <main>
+        <section class="content">
+            <section class="content">
+                <div class="page-container">
+                    <div class="plan-container">
+                        <div class="screen">Screen</div>
+                        <div class="plan">
+                            <% Object.entries(seats).forEach((info, index) =>{ %>
+                                <% const [rowName, seatsInRow] = info%>
+                                <% if(index % 4 === 0) { %>
+                                    <div class="seats-group">
+                                <% } %>
+                                <div class="row">
+                                    <div class="rowName"><%= rowName %></div>
+                                    <div class="row-seats">
+                                        <% seatsInRow.forEach(seat=>{ %>
+
+                                            <% const status = (seat.isBooked) ? 'booked': 'available' ;%>
+                                            <% const classes = '' ;%>
+                                            <%- include('./partials/seat', {seat, status, classes}) %>
+                                        <% }) %>
+                                    </div>
+                                    <div class="rowName"><%= rowName %></div>
+                                </div>
+                                <% if(index % 4 === 3 || index === Object.keys(seats).legth-1) { %>
+                                    </div>
+                                <% } %>
+                            <% }) %>
+
+                        </div>
+                        
+                    </div>
+                    <div class="status-container">
+                        <% seatStatus.forEach(status => { %>
+                            <div class="status-element">
+                                <%- include('./partials/seat', {seat: '' , status, classes: 'status-seat'}) %>
+                                <p><%= status.charAt(0).toUpperCase() + status.slice(1); %></p>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+                <div class="summary-container">
+                    <p id="summary-header">Booking Summary</p>
+                    <div class="showtime-summary-container line-breaker">
+                        <img src="<%= movie.posterUrl  %>" alt="<%= movie.title  %> poster" id="summary-movie-poster" class="movie-poster">
+                        <div class="showtime-info column-info-contatiner">
+                            <p id="summary-movie-title"><%= movie.title %></p>
+                            <p id="summary-hall-name"><%= hall.name %> • <%= hall.type  %></p>
+                            <% const showtimeDate = showtime.startTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}); %>
+                            <p id="summary-showDate"><%= showtimeDate %></p>
+                            <% const showtimeTime = showtime.startTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }); %>
+                            <p id="summary-showtime"><%= showtimeTime %></p>
+                        </div>
+                    </div>
+                    <div class="selection-details column-info-contatiner line-breaker">
+                        
+                        <p class="summary-label">Selected Seats</p>
+                        <div class="summary-value selected-seats-list"></div>
+                        <p class="summary-label">Ticket Summary</p>
+                        <div class="column-info-contatiner">
+                            <div class="ticket-type-row Regular">
+                                <span class="summary-value ticket-type  hide-ticket-type">Regular × 2</span>
+                                <span class=" summary-value ticket-subtotal hide-ticket-type">BHD 12.000</span>
+                            </div>
+                            <div class="ticket-type-row VIP">
+                                <span class="summary-value ticket-type hide-ticket-type"></span>
+                                <span class=" summary-value ticket-subtotal hide-ticket-type"></span>
+                            </div>
+                            <div class="ticket-type-row Premium">
+                                <span class="summary-value ticket-type  hide-ticket-type"></span>
+                                <span class=" summary-value ticket-subtotal hide-ticket-type"></span>
+                            </div>
+                            <div class="ticket-type-row Accessible">
+                                <span class="summary-value ticket-type hide-ticket-type"></span>
+                                <span class=" summary-value ticket-subtotal hide-ticket-type"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="selection-actions column-info-contatiner">
+                        <div class="booking-total">
+                            <p id="booking-total-label">Total</p>
+                            <p id="booking-total-price">BHD 0.000</p>
+                        </div>
+                        <div class="summary-action column-info-contatiner">
+                            <button type="button" id="booking-btn" class="btn primary-btn" data-showtime="<%= showtime._id %>" >Book</button>
+                            <a href="/movies/<%= showtime.movie._id  %>" class="btn secondary-btn">Cancel</a>
+                            <form action="/bookings">
+                            </form>
+                        </div>
+                    </div>
+
+
+                </section>
+            </section>
+
+         </section>     
+
+    </main>
+
+    
+</body>
+</html>

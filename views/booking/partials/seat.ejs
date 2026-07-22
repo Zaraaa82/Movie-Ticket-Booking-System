@@ -1,0 +1,17 @@
+
+
+<div 
+    class="seat <%= status %> <%= classes %>" 
+    <% if(seat) {%>
+        id="<%= seat.id %>" 
+        title="<%= seat.type + ' ' + seat.row + seat.number %>"
+        data-row="<%= seat.row %>" 
+        data-number="<%= seat.number %>" 
+        data-type="<%= seat.type %>" 
+        data-price="<%= seat.price %>" 
+    <% } %>
+>
+    
+    <div class="top"></div>
+    <div class="bottom"></div>
+</div>
