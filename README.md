@@ -14,7 +14,7 @@ The system also provides administrators with tools to manage movies, cinema hall
 ### Movies Page — logged out
 ![Movies Page — logged out](./public/assets/images/reademe/movies-page.png)
 
-### Movie Details and Showtimes — logged in user
+### Movie Details and Showtimes — Admin
 ![Movie Details and showtimes — logged-in user](./public/assets/images/reademe/movie-details-page.png)
 
 ### Seat Selection — logged-in user
@@ -23,7 +23,7 @@ The system also provides administrators with tools to manage movies, cinema hall
 ### My Bookings — logged-in user
 ![My Bookings Page](./public/assets/images/reademe/my-bookings-page.png)
 
-### Admin – Hall Management
+### Hall Management – Admin
 ![Admin Hall Management](./public/assets/images/reademe/hall-management-page.png)
 
 
@@ -52,8 +52,59 @@ The system also provides administrators with tools to manage movies, cinema hall
 
 
 ## Getting Started
+You can access the deployed version using the live demo link above. To run the Movie Ticket Booking System locally, follow the installation instructions below.
 
-## Installation
+### Prerequisites
+Before installing the project, make sure you have:
+- Node.js
+- npm
+- MongoDB
+- Git
+
+
+### Installation
+1. Clone the repository:
+
+   ```
+   git clone YOUR_REPOSITORY_URL
+   ```
+
+2. Navigate to the project directory:
+
+   ```
+   cd movie-ticket-booking-system
+   ```
+
+3. Install the required dependencies:
+
+   ```
+   npm install
+   ```
+
+4. Create a `.env` file in the root directory:
+
+   ```
+   PORT=3000
+   MONGODB_URI=your_mongodb_connection_string
+   SESSION_SECRET=your_session_secret
+   ```
+
+5. Start the development server:
+
+   ```
+   npm run dev
+   ```
+
+6. Open the application in your browser:
+
+   ```
+   http://localhost:3000
+   ```
+
+### Access
+
+Guests can browse movies and view available showtimes without creating an account. To select seats and create bookings, users must sign up or sign in. Hall, movie, and showtime management features are restricted to administrator accounts.
+
 
 ## User Stories
 
