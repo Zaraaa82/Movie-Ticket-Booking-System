@@ -17,7 +17,7 @@ const authController = require("./controllers/auth.controllers.js");
 const indexController = require("./controllers/index.controllers.js");
 const movieController = require("./controllers/movie.controllers.js");
 const showtimeController = require("./controllers/showtime.controllers.js");
-const snackController = require("./controllers/snack.controllers.js");
+// const snackController = require("./controllers/snack.controllers.js");
 const bookingController = require("./controllers/booking.controllers.js");
 const hallController = require("./controllers/hall.controllers.js");
 
@@ -69,7 +69,7 @@ app.use('/auth',authController)
 app.use('/',indexController)
 app.use('/movies',movieController)
 app.use('/showtimes', isAdmin, showtimeController)
-app.use('/snacks', snackController)
+// app.use('/snacks', snackController)
 app.use('/bookings', isSignedIn, bookingController)
 app.use('/halls', isAdmin, hallController)
 
