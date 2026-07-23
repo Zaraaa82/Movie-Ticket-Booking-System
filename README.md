@@ -4,7 +4,22 @@
 The **Movie Ticket Booking System (MTBS)** is a full-stack web application that allows users to browse movies, view available showtimes, select seats, and manage their bookings.<br>
 The system also provides administrators with tools to manage movies, cinema halls, and showtimes. It includes secure authentication, role-based access, automatic seat generation, seat-availability validation, and booking-status management.
 
+## Live Demo
+🎬 **[Launch Movie Ticket Booking System](https://movie-ticket-booking-system-vlxt.onrender.com)**
+
 ## Screenshots
+### Home Page — logged out
+![Home Page — logged out](./public/assets/images/reademe/home-page.png)
+
+### Movies Page — logged out
+![Movies Page — logged out](./public/assets/images/reademe/movies-page.png)
+
+### Movie Details and Showtimes — logged in user
+![Movie Details and showtimes — logged-in user](./public/assets/images/reademe/movie-details-page.png)
+
+### Seat Selection — logged-in user
+![Seat Selection Page](./public/assets/images/reademe/seat-selection-page.png)
+
 
 ## Technologies Used
 
