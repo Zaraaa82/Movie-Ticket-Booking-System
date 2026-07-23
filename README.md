@@ -75,7 +75,7 @@ The system also provides administrators with tools to manage movies, cinema hall
 | Method | Route | Description | Access |
 |---|---|---|---|
 | GET | `/auth/sign-up` | Display the sign-up form | Public |
-| POST | `/auth/sign-up` | Create a new user account |  |
+| POST | `/auth/sign-up` | Create a new user account | Public |
 | GET | `/auth/sign-in` | Display the sign-in form | Public |
 | POST | `/auth/sign-in` | Authenticate and sign in a user | Public |
 | GET | `/auth/sign-out` | Sign out the current user | User |
