@@ -20,6 +20,12 @@ The system also provides administrators with tools to manage movies, cinema hall
 ### Seat Selection — logged-in user
 ![Seat Selection Page](./public/assets/images/reademe/seat-selection-page.png)
 
+### My Bookings — logged-in user
+![My Bookings Page](./public/assets/images/reademe/my-bookings-page.png)
+
+### Admin – Hall Management
+![Admin Hall Management](./public/assets/images/reademe/hall-management-page.png)
+
 
 ## Technologies Used
 
