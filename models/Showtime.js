@@ -21,11 +21,12 @@ const showtimeSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    isDeleted:{
-        type: Boolean,
-        default: false
+    status: {
+        type: String,
+        enum: ['Upcoming', 'Ongoing', 'Completed', 'Cancelled'],
+        default: 'Upcoming'
     }
-
+    
 },{timestamps: true})
 
 

@@ -29,9 +29,10 @@ const bookingSchema = new mongoose.Schema(
       enum: ["Upcoming", "Previous", "Cancelled"],
       default: "Upcoming"
     },
-    isDeleted:{
-      type: Boolean,
-      default: false
+    cancellationReason: {
+      type: String,
+      enum: ['Cancelled by user', 'Movie removed', 'Showtime cancelled'],
+      default: null
     }
   },
   { timestamps: true },
