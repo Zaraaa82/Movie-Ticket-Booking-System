@@ -18,6 +18,7 @@ router.get('/new', async (req, res)=>{
         
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 });
 
@@ -28,10 +29,12 @@ router.get('/:hallId/edit', async (req, res)=>{
             res.render('halls/edit.ejs', {hall: updatedhall});
         }else{
             res.send("hall not found.");
+            
         }
         
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 });
 
@@ -52,6 +55,7 @@ router.post('/new', async (req, res)=>{
         
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 });
 
@@ -62,6 +66,7 @@ router.delete('/:hallId', async (req, res)=>{
 
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 });
 
@@ -83,6 +88,7 @@ router.put('/:hallId', async (req, res)=>{
         
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 });
 
@@ -107,6 +113,7 @@ router.post('/', async (req, res)=>{
 
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 });
 
