@@ -12,12 +12,14 @@ const isSignedIn = require("./middleware/is-signed-in.js");
 const passUserToView = require("./middleware/pass-user-to-view.js");
 const isAdmin = require("./middleware/is-admin");
 
+// service import
+const updateStatuses = require('./services/updateStatuses.js');
+
 // controller Imports
 const authController = require("./controllers/auth.controllers.js");
 const indexController = require("./controllers/index.controllers.js");
 const movieController = require("./controllers/movie.controllers.js");
 const showtimeController = require("./controllers/showtime.controllers.js");
-// const snackController = require("./controllers/snack.controllers.js");
 const bookingController = require("./controllers/booking.controllers.js");
 const hallController = require("./controllers/hall.controllers.js");
 
@@ -69,13 +71,19 @@ app.use('/auth',authController)
 app.use('/',indexController)
 app.use('/movies',movieController)
 app.use('/showtimes', isAdmin, showtimeController)
-// app.use('/snacks', snackController)
 app.use('/bookings', isSignedIn, bookingController)
 app.use('/halls', isAdmin, hallController)
 
 
-
-
+// Runs the status update service and handles errors
+const runStatusUpdate = async () => {
+  try {
+    await updateStatuses();
+    console.log('Status check complete. All records are up to date.');
+  } catch (error) {
+    console.error('Failed to update statuses:', error);
+  }
+};
 
 
 // connect to database and listen on Port 3000
@@ -83,6 +91,10 @@ async function startServer() {
     const PORT = process.env.PORT || 3000;
     await connectToDB();
 
+    // Run once at startup, then automatically every minute
+    await runStatusUpdate();
+    setInterval(runStatusUpdate, 60000);
+    
     app.listen(PORT, () => {
         console.log(`App is running on port ${PORT}`);
     });
