@@ -102,7 +102,11 @@
     height: 1rem;
 }
 
-
+.cancellationReason{
+    max-width: 10rem;
+    text-align: center;
+    color: var(--color-text-muted);
+}
 
 
 

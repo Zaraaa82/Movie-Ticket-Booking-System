@@ -57,11 +57,11 @@
     
                         </div>
                             <div id="control-btns">
-                            <a href="<%=movie.trailerUrl%>" class="primary-btn" target="_blank">▶ Watch Trailer</a>
-                            <% if(user && user.isAdmin){ %>
+                            <a href="<%=movie.trailerUrl%>" class="primary-btn" target="_blank" rel="noopener noreferrer">▶ Watch Trailer</a>
+                            <% if(user?.isAdmin){ %>
                                 <a href="/movies/<%= movie._id  %>/edit" class="btn secondary-btn ">✎ Edit</a>
                                 <form method="post" action="/movies/<%= movie._id  %>?_method=DELETE">
-                                    <button class="btn delete-btn" >🗑 Delete</button>
+                                    <button type="submit" class="btn delete-btn" >🗑 Delete</button>
                                 </form>
                             <% } %>
                         </div>
@@ -69,7 +69,7 @@
                     </div>
                 </section>
             </div>
-            <% if(movie.status == "Now Showing" || user?.isAdmin) { %>
+            <% if(movie.status === "Now Showing" || user?.isAdmin) { %>
                 <section class=" page-header page-section card">
                     <div class="content showtime-section">
                         <div class="row-container showtime-section-header">

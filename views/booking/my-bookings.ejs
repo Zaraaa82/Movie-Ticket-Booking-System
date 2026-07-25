@@ -34,7 +34,7 @@
                 <% const formattedDate = new Date(showtime.startTime).toLocaleDateString('en-GB', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'}); %>
                 <% const formattedTime = new Date(booking.showtime.startTime).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'}); %>     
                 
-                <div class="booking-card card">
+                <div id="<%= booking._id  %>" class="booking-card card">
                     <img src="<%= movie.posterUrl %>" alt="<%= movie.title %> poster" class="movie-poster booking-poster">
                     <div class="booking-info">
                         <p class="booking-title"><%= movie.title %></p>
@@ -73,11 +73,17 @@
                             <img src="assets/images/film.png" alt="Film icon" id="booking-status-icon">
                             <%= booking.status  %>
                         </div>
-                            <div class="booking-detail-info">
+                            <div class="booking-detail-info <%= (booking.cancellationReason !== 'Cancelled by user')? 'line-breaker' :'' %>">
                                 <span class="booking-label">Total</span> 
                                 <span>BHD <%= booking.totalPrice %></span>
                             </div>
-                        <a href="/movies/<%= movie._id %>" class="btn secondary-btn">View Movie</a>
+                        <% if(booking.cancellationReason !== 'Movie removed'){ %>    
+                            <a href="/movies/<%= movie._id %>" class="btn secondary-btn">View Movie</a>
+                        <% } %>
+                        <% if(booking.cancellationReason === 'Movie removed'){ %>
+                            <p class="cancellationReason">This booking was cancelled because the movie is no longer showing. A full refund has been issued.</p>
+                        <% } %>
+                        
 
                         <% if (booking.status === 'Upcoming') { %>
                             <form action="/bookings/cancel/<%= booking._id %>" method="POST">
