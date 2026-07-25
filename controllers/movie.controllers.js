@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const Movie = require('../models/Movie');
 const Showtime = require('../models/Showtime');
+const Booking = require('../models/Booking');
 const movieMetadata = require("../middleware/loadMovieMetadata");
-const isSignedIn = require("../middleware/is-signed-in");
 const isAdmin = require("../middleware/is-admin");
 
 
@@ -16,6 +16,7 @@ router.get('/', async (req, res)=>{
         
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 });
 
@@ -33,14 +34,14 @@ router.get('/:movieId', async(req, res)=>{
         
         
         // Retrive the selected movie
-        const foundMovie = await Movie.findById(movieId).populate("genre");
-        if(!foundMovie){
-            return res.send("Movie not found.");
+        const foundMovie = await Movie.findOne({_id: movieId, isDeleted: false}).populate("genre");
+        if (!foundMovie) {
+            return res.status(404).send('Movie not found.');
         }
         
         
         // Retrieve the movie's showtimes ordered from earliest to latest
-        const allShowtimes = (await Showtime.find({movie: movieId}).populate('hall').sort({startTime: 1})).filter(show=> {
+        const allShowtimes = (await Showtime.find({movie: movieId, status: 'Upcoming'}).populate('hall').sort({startTime: 1})).filter(show=> {
             const showDate = show.startTime.toLocaleDateString("en-CA");
             return showDate >= today;
         })
@@ -64,6 +65,7 @@ router.get('/:movieId', async(req, res)=>{
 
     }catch(error){
         console.log('Error:', error);
+        res.status(500).send('Something went wrong.');
     }
 });
 
@@ -73,11 +75,12 @@ router.get('/:movieId/edit', isAdmin, movieMetadata, async(req, res)=>{
         if(editedMovie){
             res.render('movies/edit.ejs', {movie: editedMovie});
         }else{
-            res.send("Movie not found.");
+            return res.status(404).send('Movie not found.');
         }
 
     }catch(error){
         console.log('Error:', error);
+        res.status(500).send('Something went wrong.');
     }
 });
 
@@ -85,29 +88,23 @@ router.get('/:movieId/edit', isAdmin, movieMetadata, async(req, res)=>{
 
 router.delete('/:movieId', isAdmin, async(req, res)=>{
     try{
-        
-        const deletedMovie = await Movie.findByIdAndUpdate(req.params.movieId, {isDeleted: true});
-        const deletedShowtimes = await Showtime.updateMany({movie: req.params.movieId}, {isDeleted: true})
-        const showtimes = await Showtime.find({movie: req.params.movieId});
-        for(let show of showtimes){
-            const deletedSeats = await Seat.updateMany({showtime: show._id}, {isDeleted: true});
+        const movie = await Movie.findByIdAndUpdate(req.params.movieId, {isDeleted: true});
+        if(!movie){
+            return res.status(404).send("Movie not found.");
         }
+        const showtimeIds = (await Showtime.find({movie: req.params.movieId})).map(showtime => showtime._id);
+        await Showtime.updateMany({_id: {$in: showtimeIds}, status: {$in: ['Upcoming', 'Ongoing']}}, {status: 'Cancelled'});
+        await Booking.updateMany({showtime: {$in: showtimeIds}, status: 'Upcoming'}, {status: 'Cancelled', cancellationReason: 'Movie removed'});
 
-        const updatedBooking = await Booking.updateMany({movie: req.params.movieId}, {isDeleted: true})
-        
-
-        if(deletedMovie){
-           res.redirect('/movies');
-        }else{
-            res.send("Movie not found.");
-        }
+        res.redirect('/movies');
 
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 });
 
-router.put('/:movieId', async(req, res)=>{
+router.put('/:movieId', isAdmin, async(req, res)=>{
     try{
         const movieId = req.params.movieId;
         const movie = req.body;
@@ -121,16 +118,17 @@ router.put('/:movieId', async(req, res)=>{
         movie.isTrending = Boolean(movie.isTrending);
         movie.isFeatured = Boolean(movie.isFeatured);
 
-        const upbdatedMovie = await Movie.findByIdAndUpdate(movieId, movie, { new: true });
+        const updatedMovie = await Movie.findByIdAndUpdate(movieId, movie, { new: true });
 
-        if(upbdatedMovie){
+        if(updatedMovie){
             res.redirect('/movies/'+movieId);
         }else{
-            res.send("Movie not found.");
+            return res.status(404).send('Movie not found.');
         }
 
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 })
 
@@ -154,6 +152,7 @@ router.post('/', isAdmin, async(req, res)=>{
 
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 })
 

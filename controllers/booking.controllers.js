@@ -6,18 +6,22 @@ const Booking = require("../models/Booking");
 const { render } = require("ejs");
 
 router.get('/', async(req, res)=>{
-    const selectedStatus = req.query.status || 'Upcoming';
-    const bookings = await Booking.find({user: req.session.user._id, status: selectedStatus}).populate('selectedSeats').populate({
-        path:'showtime',
-        populate:[
-            {path:'movie'},
-            {path:'hall'}
-        ]
-    });
-
-
-    res.render('booking/my-bookings.ejs',{bookings, selectedStatus})
+    try{
+        const selectedStatus = req.query.status || 'Upcoming';
+        const bookings = await Booking.find({user: req.session.user._id, status: selectedStatus}).populate('selectedSeats').populate({
+            path:'showtime',
+            populate:[
+                {path:'movie'},
+                {path:'hall'}
+            ]
+        });
     
+        res.render('booking/my-bookings.ejs',{bookings, selectedStatus}) ;   
+    
+    }catch(error){
+        console.log(error);
+        res.status(500).send('Something went wrong.');
+    }
 
 })
 
@@ -45,6 +49,7 @@ router.get('/new/:showtimeId', async (req, res)=>{
 
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 });
 
@@ -84,12 +89,11 @@ router.post('/new/:showtimeId', async (req, res)=>{
 
         await Seat.updateMany({_id: {$in: validSelectedSeatIds}}, {isBooked: true})
 
-        return res.status(201).json({
-            redirectUrl: '/bookings'
-        })
+        return res.status(201).json({redirectUrl: '/bookings#' + newBooking._id})
        
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 });
 
@@ -97,19 +101,20 @@ router.post('/cancel/:bookingId', async(req, res)=>{
     try{
         const booking = await Booking.findOne({_id: req.params.bookingId, user: req.session.user._id});
 
-        booking.status = 'Cancelled';
-
+        
         if (!booking) {
             return res.send('Booking not found.');
         }
-
+        
+        booking.status = 'Cancelled';
         await booking.save();
         await Seat.updateMany({_id: {$in: booking.selectedSeats}}, { isBooked: false });
 
-        res.redirect('/bookings?status=Cancelled');
+        res.redirect('/bookings?status=Cancelled#'+ booking._id);
 
     }catch(error){
         console.log(error);
+        res.status(500).send('Something went wrong.');
     }
 })
 

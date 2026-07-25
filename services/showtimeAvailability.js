@@ -33,7 +33,7 @@ const timeSlots = [
 
 async function getAvailableOptions(movie, date){
   const halls = await Hall.find();
-  const existingShowtimes = await Showtime.find({isDeleted: false});
+  const existingShowtimes = await Showtime.find({status: {$in: ['Upcoming', 'Ongoing'] }});
 
   const availableOptions = {};
   const ADS_Duration = 15 * 60 * 1000; // in ms
