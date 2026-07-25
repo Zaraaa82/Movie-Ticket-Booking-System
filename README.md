@@ -188,7 +188,6 @@ The movies page also supports filtering through a query parameter:
 | Method | Route | Description | Access |
 |---|---|---|---|
 | GET | `/showtimes/:movieId` | Display the date-selection page | Admin |
-| GET | `/showtimes/new/:movieId` | Display the date-selection page | Admin |
 | POST | `/showtimes/:movieId` | Display the available halls and time slots for a selected date | Admin |
 | POST | `/showtimes/new/:movieId` | Create a showtime and generate its seats | Admin |
 
