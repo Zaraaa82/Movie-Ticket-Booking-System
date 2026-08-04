@@ -66,7 +66,7 @@ Before installing the project, make sure you have:
 1. Clone the repository:
 
    ```
-   git clone YOUR_REPOSITORY_URL
+   git clone https://github.com/Zaraaa82/Movie-Ticket-Booking-System
    ```
 
 2. Navigate to the project directory:
